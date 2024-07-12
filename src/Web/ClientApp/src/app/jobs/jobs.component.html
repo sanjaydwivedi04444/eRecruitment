@@ -1,0 +1,258 @@
+<h4>Jobs</h4>
+<input type="text" class="form-control" id="searchJob" placeholder="Search job..." (keyup)="search(getValue($event))" />
+<button class="btn btn-default float-end" title="Create Job"
+        (click)="showNewJobModal(newJobModalTemplate)">
+  Post Job
+</button>
+<p *ngIf="!jobDto"><em>Loading...</em></p>
+<table class='table' aria-labelledby="tableLabel" *ngIf="jobDto">
+  <thead>
+    <tr>
+      <th style="background-color:lightgrey">Job</th>
+      <th style="background-color:lightgrey">Descriptions</th>
+      <th style="background-color:lightgrey">Experience</th>
+      <th style="background-color:lightgrey">Location</th>
+      <th style="background-color:lightgrey">Employer</th>
+      <th style="background-color:lightgrey">&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let list of jobDto.items | paginate : pagingConfig; let i = index">
+      <td>{{ list.title }}</td>
+      <td>{{ list.jobDescriptions }}</td>
+      <td>{{ list.experience }}</td>
+      <td>{{ list.location }}</td>
+      <td>{{ list.employer }}</td>
+      <td>
+        <button class="btn btn-default float-end" title="Update"
+                (click)="showUpdateJobModal(updateJobModalTemplate, list)">
+          Edit
+        </button>
+      </td>
+    </tr>
+    <tr><td colspan="6"><pagination-controls previousLabel="<" nextLabel=">" (pageChange)="pageChanged($event)" ></pagination-controls></td></tr>
+  </tbody>
+</table>
+
+<ng-template #newJobModalTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Post Job</h4>
+    <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="newJobCancelled()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <div class="row g-3">
+        <div class="col">
+          <input type="hidden" id="id" [(ngModel)]="newJobEditor.id" />
+          <label for="title">Title</label>
+          <input type="text" class="form-control" id="title" placeholder="Job title..." [(ngModel)]="newJobEditor.title"
+                 [ngClass]="{ 'is-invalid': newJobEditor.error }" (keyup.enter)="addJob()" />
+          <div *ngIf="newJobEditor.error" class="invalid-feedback">
+            {{ newJobEditor.error }}
+          </div>
+        </div>
+      </div>
+      <div class="row g-3">
+        <div class="col">
+          <label for="jobDescriptions">Job Descriptions</label>
+          <input type="text" class="form-control" id="title" placeholder="Job Descriptions..." [(ngModel)]="newJobEditor.jobDescriptions"
+                 [ngClass]="{ 'is-invalid': newJobEditor.error }" (keyup.enter)="addJob()" />
+        </div>
+      </div>
+        <div class="row g-3">
+          <div class="col">
+            <label for="experience">Experience</label>
+            <input type="text" class="form-control" id="title" placeholder="Experience..." [(ngModel)]="newJobEditor.experience"
+                   [ngClass]="{ 'is-invalid': newJobEditor.error }" (keyup.enter)="addJob()" />
+          </div>
+          <div class="col">
+            <label for="location">Location</label>
+            <input type="text" class="form-control" id="title" placeholder="Location..." [(ngModel)]="newJobEditor.location"
+                   [ngClass]="{ 'is-invalid': newJobEditor.error }" (keyup.enter)="addJob()" />
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col">
+            <label for="education">Education</label>
+            <input type="text" class="form-control" id="title" placeholder="Education..." [(ngModel)]="newJobEditor.education"
+                   [ngClass]="{ 'is-invalid': newJobEditor.error }" (keyup.enter)="addJob()" />
+          </div>
+          <div class="col">
+            <label for="employer">Employer</label>
+            <input type="text" class="form-control" id="title" placeholder="Company name..." [(ngModel)]="newJobEditor.employer"
+                   [ngClass]="{ 'is-invalid': newJobEditor.error }" (keyup.enter)="addJob()" />
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col">
+            <label for="employmentType">Employment Type</label>
+            <input type="text" class="form-control" id="title" placeholder="Employment Type..." [(ngModel)]="newJobEditor.employmentType"
+                   [ngClass]="{ 'is-invalid': newJobEditor.error }" (keyup.enter)="addJob()" />
+          </div>
+          <div class="col">
+            <label for="industryType">Industry Type</label>
+            <input type="text" class="form-control" id="title" placeholder="Industry Type..." [(ngModel)]="newJobEditor.industryType"
+                   [ngClass]="{ 'is-invalid': newJobEditor.error }" (keyup.enter)="addJob()" />
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col">
+            <label for="keySkills">Key Skills</label>
+            <input type="text" class="form-control" id="title" placeholder="Key Skills..." [(ngModel)]="newJobEditor.keySkills"
+                   [ngClass]="{ 'is-invalid': newJobEditor.error }" (keyup.enter)="addJob()" />
+          </div>
+          <div class="col">
+            <label for="openings">No. of Openings</label>
+            <input type="text" class="form-control" id="title" placeholder="No. of Openings..." [(ngModel)]="newJobEditor.openings"
+                   [ngClass]="{ 'is-invalid': newJobEditor.error }" (keyup.enter)="addJob()" />
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col">
+            <label for="role">Role</label>
+            <input type="text" class="form-control" id="title" placeholder="Role..." [(ngModel)]="newJobEditor.role"
+                   [ngClass]="{ 'is-invalid': newJobEditor.error }" (keyup.enter)="addJob()" />
+          </div>
+          <div class="col">
+            <label for="title">Salary</label>
+            <input type="text" class="form-control" id="title" placeholder="Salary..." [(ngModel)]="newJobEditor.salary"
+                   [ngClass]="{ 'is-invalid': newJobEditor.error }" (keyup.enter)="addJob()" />
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="workMode">Work Mode</label>
+            <input type="text" class="form-control" id="title" placeholder="Work Mode..." [(ngModel)]="newJobEditor.workMode"
+                   [ngClass]="{ 'is-invalid': newJobEditor.error }" (keyup.enter)="addJob()" />
+          </div>
+        </div>
+        <div *ngIf="debug">
+          <pre>{{ newJobEditor | json }}</pre>
+        </div>
+      </div>
+  </div>
+  <div class="modal-footer clearfix">
+    <div class="float-end">
+      <button class="btn btn-default" (click)="newJobCancelled()">Cancel</button>
+      <button class="btn btn-primary" (click)="addJob()">Create</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #updateJobModalTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Update Job</h4>
+    <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="updateJobCancelled()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <div class="row g-3">
+        <div class="col">
+          <input type="hidden" id="id" [(ngModel)]="updateJobEditor.id" />
+          <label for="title">Title</label>
+          <input type="text" class="form-control" id="title" placeholder="Ttle..." [(ngModel)]="updateJobEditor.title"
+                 [ngClass]="{ 'is-invalid': updateJobEditor.error }" (keyup.enter)="addJob()" />
+          <div *ngIf="updateJobEditor.error" class="invalid-feedback">
+            {{ updateJobEditor.error }}
+          </div>
+        </div>
+      </div>
+      <div class="row g-3">
+        <div class="col">
+          <label for="jobDescriptions">Job Descriptions</label>
+          <input type="text" class="form-control" id="title" placeholder="Descriptions..." [(ngModel)]="updateJobEditor.jobDescriptions"
+                 [ngClass]="{ 'is-invalid': updateJobEditor.error }" (keyup.enter)="addJob()" />
+        </div>
+      </div>
+      <div class="row g-3">
+        <div class="col">
+          <label for="experience">Experience</label>
+          <input type="text" class="form-control" id="title" placeholder="Experience..." [(ngModel)]="updateJobEditor.experience"
+                 [ngClass]="{ 'is-invalid': updateJobEditor.error }" (keyup.enter)="addJob()" />
+
+        </div>
+        <div class="col">
+          <label for="location">Location</label>
+          <input type="text" class="form-control" id="title" placeholder="Location..." [(ngModel)]="updateJobEditor.location"
+                 [ngClass]="{ 'is-invalid': updateJobEditor.error }" (keyup.enter)="addJob()" />
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col">
+          <label for="education">Education</label>
+          <input type="text" class="form-control" id="title" placeholder="Education..." [(ngModel)]="updateJobEditor.education"
+                 [ngClass]="{ 'is-invalid': updateJobEditor.error }" (keyup.enter)="addJob()" />
+
+        </div>
+        <div class="col">
+          <label for="employer">Employer</label>
+          <input type="text" class="form-control" id="title" placeholder="Employer..." [(ngModel)]="updateJobEditor.employer"
+                 [ngClass]="{ 'is-invalid': updateJobEditor.error }" (keyup.enter)="addJob()" />
+        </div>
+      </div>
+      <div class="row g-3">
+        <div class="col">
+          <label for="employmentType">Employment Type</label>
+          <input type="text" class="form-control" id="title" placeholder="Employment Type..." [(ngModel)]="updateJobEditor.employmentType"
+                 [ngClass]="{ 'is-invalid': updateJobEditor.error }" (keyup.enter)="addJob()" />
+
+        </div>
+        <div class="col">
+          <label for="industryType">Industry Type</label>
+          <input type="text" class="form-control" id="title" placeholder="Industry Type..." [(ngModel)]="updateJobEditor.industryType"
+                 [ngClass]="{ 'is-invalid': updateJobEditor.error }" (keyup.enter)="addJob()" />
+        </div>
+      </div>
+      <div class="row g-3">
+        <div class="col">
+          <label for="keySkills">Key Skills</label>
+          <input type="text" class="form-control" id="title" placeholder="Key Skills..." [(ngModel)]="updateJobEditor.keySkills"
+                 [ngClass]="{ 'is-invalid': updateJobEditor.error }" (keyup.enter)="addJob()" />
+
+        </div>
+        <div class="col">
+          <label for="openings">No. of Openings</label>
+          <input type="text" class="form-control" id="title" placeholder="No. of Openings..." [(ngModel)]="updateJobEditor.openings"
+                 [ngClass]="{ 'is-invalid': updateJobEditor.error }" (keyup.enter)="addJob()" />
+        </div>
+      </div>
+      <div class="row g-3">
+        <div class="col">
+          <label for="role">Role</label>
+          <input type="text" class="form-control" id="title" placeholder="Role..." [(ngModel)]="updateJobEditor.role"
+                 [ngClass]="{ 'is-invalid': updateJobEditor.error }" (keyup.enter)="addJob()" />
+
+        </div>
+        <div class="col">
+          <label for="title">Salary</label>
+          <input type="text" class="form-control" id="title" placeholder="Job Salary..." [(ngModel)]="updateJobEditor.salary"
+                 [ngClass]="{ 'is-invalid': updateJobEditor.error }" (keyup.enter)="addJob()" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="workMode">Work Mode</label>
+        <input type="text" class="form-control" id="title" placeholder="Work Mode..." [(ngModel)]="updateJobEditor.workMode"
+               [ngClass]="{ 'is-invalid': updateJobEditor.error }" (keyup.enter)="addJob()" />
+      </div>
+    </div>
+    <div *ngIf="debug">
+      <pre>{{ updateJobEditor | json }}</pre>
+    </div>
+  </div>
+  <div class="modal-footer clearfix">
+    <div class="float-end">
+      <button class="btn btn-default" (click)="updateJobCancelled()">Cancel</button>
+      <button class="btn btn-primary" (click)="updateJob()">Update</button>
+    </div>
+  </div>
+</ng-template>

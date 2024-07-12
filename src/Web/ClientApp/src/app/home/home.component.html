@@ -1,0 +1,95 @@
+<div style="margin-left:50px; margin-right:50px">
+  <div class="row">
+    <div class="col" style="text-align:center">
+      <h3>Find your dream job now</h3>
+      <p>5 lakh+ jobs for you to explore</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col" style="text-align:center">
+      <input type="text" style="width: 635px; height: 40px; padding-left: 10px; border-radius: 10px; border: 1px solid grey;"
+             id="searchJob" (keyup)="search(getValue($event))" placeholder="Enter skills / designation / companies" />
+      <!--<input type="button" value="Search" style="width: 100px; height: 40px; background-color: #275df5; color:white; font-weight:bold; padding:5px" />-->
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row" style="margin-top:20px">
+    <div class="col-sm">
+      
+    </div>
+    <div class="col-6">
+      <p *ngIf="!jobDto"><em>Loading...</em></p>
+      <div class="row" *ngFor="let list of jobDto.items | paginate : pagingConfig; let i = index">
+        <div class="col" style="border:1px solid grey; margin:5px; border-radius:20px; padding:20px">
+          <img src="assets/images/company-default.png" style="float:right; height:100px; width:100px" />
+          <strong>{{ list.title }}</strong><br />
+          <span>{{ list.employer }}</span><br /><br />
+          <p>
+            <span><img src="assets/images/icon-bag.png" height="20px" width="20px" />&nbsp;{{ list.experience }}</span>&nbsp;|&nbsp;
+            <span><img src="assets/images/icon-gbp.png" height="15px" width="15px" />&nbsp;Not Disclosed</span>&nbsp;|&nbsp;
+            <span><img src="assets/images/icon-location.png" height="20px" width="20px" />&nbsp;{{ list.location }}</span>
+          </p>
+          <p><img src="assets/images/icon-desc.png" height="30px" width="30px" style="margin-left: -4px;" /> {{ list.jobDescriptions }}</p>
+          <hr />
+
+          <p>
+            <span>Posted:<b>2 days ago</b></span>&nbsp;|&nbsp;
+            <span>Openings:<b>2</b></span>
+            <span style="float: right;">
+              <a href="/Identity/Account/Register"
+                 style="text-decoration: none; border-radius: 10px; border: 1px solid blue; padding: 5px; color: blue">Register to apply</a>&nbsp;|&nbsp;
+              <a href="/Identity/Account/Login" style="text-decoration: none; border-radius: 10px; border: 1px solid blue; background: blue; padding: 7px; color: white">Login to apply</a>
+            </span>
+          </p>
+        </div>
+      </div>
+      <p><pagination-controls previousLabel="<" nextLabel=">" (pageChange)="pageChanged($event)"></pagination-controls></p>
+    </div>
+    <div class="col-sm">
+      
+    </div>
+  </div>
+  </div>
+  <!--<div class="row">
+    <div class="col" style="margin:10px 50px 0px 50px">
+      <p *ngIf="!jobDto"><em>Loading...</em></p>
+      <table class='table' aria-labelledby="tableLabel" *ngIf="jobDto" style="align-content:center">
+        <thead>
+          <tr>
+            <th style="background-color:lightgrey">Job</th>
+            <th style="background-color:lightgrey">Descriptions</th>
+            <th style="background-color:lightgrey">Experience</th>
+            <th style="background-color:lightgrey">Location</th>
+            <th style="background-color:lightgrey">Employer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let list of jobDto.items | paginate : pagingConfig; let i = index">
+            <td>{{ list.title }}</td>
+            <td>{{ list.jobDescriptions }}</td>
+            <td>{{ list.experience }}</td>
+            <td>{{ list.location }}</td>
+            <td>{{ list.employer }}</td>
+          </tr>
+          <tr><td colspan="6">
+            <pagination-controls previousLabel="<" nextLabel=">" (pageChange)="pageChanged($event)"></pagination-controls></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>-->
+  <!--<ul>
+    <li>Post Jobs</li>
+    <li>Manage Jobs</li>
+    <li>Review Jobs</li>
+  </ul>
+  <p>e-Recruitment is assessing and analyzing each candidate’s resumes and applications. If a company receives thousands of applicants,
+    recruitment software and systems help them choose the best talent for the role with ease. It can save a company hundreds of hours
+    during the hiring process.</p>
+  <ul>
+    <li>e-Recruitment provides employers with access to a much larger scope of candidates. Applicants from all over may stumble across the company’s website, job description, or social media post. It helps recruiters find the exact type of employee they are looking for without wasting too much time. From the initial job of attracting candidates to hiring a new employee, e-recruitment ensures efficiency and speed.</li>
+    <li>The process of recruiting candidates online or by using technology is E-recruitment. It’s a popular process for hiring new employees, as it is cost-friendly, fast, and straightforward. It covers each section of the recruitment process, including attracting applicants, assessing, interviewing, and hiring.</li>
+    <li>All whilst reducing recruiter admin and your time to hire!</li>
+  </ul>
+  <p>Our purpose (and passion) is to help companies attract, engage, and hire amazing, diverse teams that can change the world for the better.</p>-->

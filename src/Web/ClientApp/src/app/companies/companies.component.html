@@ -1,0 +1,26 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+
+    </div>
+    <div class="col-6">
+      <input type="text" style="width:635px; height: 40px; padding-left: 10px; border-radius: 10px; border: 1px solid grey;" id="searchCompany" placeholder="Search company..." (keyup)="search(getValue($event))" />
+      <p *ngIf="!companyDto"><em>Loading...</em></p>
+      <div class="row" *ngFor="let list of companyDto.items | paginate : pagingConfig; let i = index">
+        <div class="col" style="border:1px solid grey; margin:5px; border-radius:20px; padding:20px">
+          <img src="assets/images/company-default.png" style="float:left; height:100px; width:100px; padding-right:10px" />
+          <strong>{{ list.companyTitle }}</strong><br />
+          <span style="float:right; font-size:25px;">></span>
+          <span>4.0&nbsp;|&nbsp;2000 review</span><br />
+          <span style="border:1px solid grey;border-radius: 5px; padding:2px">{{ list.companyType }}</span>
+          <p>{{ list.companyDescriptions }}</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-sm">
+
+    </div>
+  </div>
+</div>
