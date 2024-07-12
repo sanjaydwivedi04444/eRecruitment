@@ -1,4 +1,6 @@
-<img width="926" alt="Login" src="https://github.com/user-attachments/assets/cfa1c447-c8f8-40dc-86b2-508e6e2a7513">
+![er](https://github.com/user-attachments/assets/86e6cf83-3aca-4fa9-86f2-0aadd56f4ba1)
+![erc](https://github.com/user-attachments/assets/a1080d2a-35cc-4034-90c0-e2f4e55b532c)
+
 
  # eRecruitment
 
